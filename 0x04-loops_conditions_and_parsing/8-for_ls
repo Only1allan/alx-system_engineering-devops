@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#display content of curent dir in list format only part after first dash
+
+ls=$(ls)
+for i in $ls;
+do
+	echo "$i" | cut -d '-' -f2
+done

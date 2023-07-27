@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#displays numbers 1 to 20
+#if no is 4 dislay bad luck from China
+#if no is 9 display bad luck from Japan
+#if no is 17 display bad luck from Italy
+
+i=1
+
+while [ $i -le 20 ]
+do
+	echo "$i"
+	case $i in
+	     "4") echo "bad luck from China";;
+	     "9") echo "bad luck from Japan";;
+	     "17") echo "bad luck from Italy";;
+	esac
+	(( i++ ))
+done
+	
