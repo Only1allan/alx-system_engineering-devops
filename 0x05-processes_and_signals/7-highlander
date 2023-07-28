@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#bash script that display infinte and beyond with sleep2
+#prints I am invicible in case of isgterm signal
+
+while true
+do
+    echo "To infinity and beyond"
+    sleep 2
+    trap 'echo "I am invincible!!!"' SIGTERM
+done
