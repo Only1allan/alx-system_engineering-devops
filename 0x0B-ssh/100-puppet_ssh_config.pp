@@ -7,7 +7,7 @@ file { '/etc/ssh/ssh_config':
         Host remote-server
             Hostname 100.25.134.21
             User ubuntu
-            IdentityFile /home/.ssh/.ssh/school
+            IdentityFile /home/.ssh/school
             PasswordAuthentication no
     ",
 }
