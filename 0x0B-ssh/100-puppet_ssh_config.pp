@@ -1,3 +1,4 @@
+#make changes to config file with puppet
 file { '/etc/ssh/ssh_config':
     ensure => present,
     mode   => '0600',
