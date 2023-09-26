@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#write a script to install an inginx web server
+#write a script to install an nginx web server
 sudo apt-get update -y
 sudo apt-get install -y nginx
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
