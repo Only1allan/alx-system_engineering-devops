@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 #install nginx and configure it
 
-##update
-sudo apt-get update -y
+sudo apt-get update -y && sudo apt-get upgrade -y
 
-#install nginx
 sudo apt-get install -y nginx
 
-#configure home page for nginx
+# sudo ufw allow 'Nginx HTTP'
+# sudo chown -R "$USER":"$USER" /var/www/html
 sudo echo "Hello World!" | sudo tee /usr/share/nginx/html/index.nginx-debian.html
 
-#configure redirection 
-sudo sed -i 'listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGU1wu4/ permanent;' /etc/nginx/sites-available/default
+sudo chown -R "$USER":"$USER" /etc/nginx/sites-enabled/default
+
+sudo sed -i '/listen 80 default_server/a\
+rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGU1wu4/ permanent;' /etc/nginx/sites-available/default
+
 sudo service nginx restart
