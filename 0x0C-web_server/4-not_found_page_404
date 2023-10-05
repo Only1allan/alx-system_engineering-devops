@@ -9,6 +9,12 @@ sudo apt-get install -y nginx
 
 # Set up default nginx page
 sudo echo "Hello World!" | sudo tee /usr/share/nginx/html/index.nginx-debian.html
+sudo chown -R "$USER":"$USER" /etc/nginx/sites-enabled/default
+
+# shellcheck disable=SC1004
+sudo sed -i '/listen 80 default_server/a\
+rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGU1wu4/ permanent;' /etc/nginx/sites-available/default
+
 
 # Configure custom 404 page
 sudo echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html
