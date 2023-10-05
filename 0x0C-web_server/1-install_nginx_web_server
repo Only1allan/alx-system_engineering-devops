@@ -2,5 +2,5 @@
 #write a script to install an nginx web server
 sudo apt-get update -y
 sudo apt-get install -y nginx
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+echo "Hello World!" | sudo tee /usr/share/nginx/html/index.nginx-debian.html
 sudo service nginx restart
