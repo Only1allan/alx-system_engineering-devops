@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# This script configures HAproxy on the lb-01 server
+
+# Update system
+sudo apt update -y
+
+# install haproxy
+sudo apt-get install haproxy -y
+
+# Enable HAProxy
+if ! grep -q "ENABLED=" /etc/default/haproxy; then
+    sudo echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+else
+    sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy # make ENABLED=1
+fi
+
+# Configure HAProxy
+config="\
+frontend lb-01
+        bind *:80
+        mode http
+        default_backend backend_servers
+backend backend_servers
+        balance roundrobin
+        server 82277-web-01  100.25.134.21:80 check
+        server 82277-web-02 52.91.121.79:80 check
+"
+sudo echo "$config" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+# restart service for config to take effect
+sudo service haproxy restart
