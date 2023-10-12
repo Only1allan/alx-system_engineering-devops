@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#configure a server to listen to port 80
+sudo sed -i "s/8080/80/" /etc/nginx/sites-available/default
+echo "" | sudo dd status=none of=/run/nginx.pid
