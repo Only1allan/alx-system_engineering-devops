@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#display information about subdomains
+
+check_subdomain() {
+    local domain="$1"
+    local subdomain="$2"
+
+    if [ -z "$subdomain" ]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=("$subdomain")
+    fi
+
+    for subd in "${subdomains[@]}"; do
+        result=$(dig "$subd"."$domain" +short)
+
+        if [ -z "$result" ]; then
+            echo "The subdomain $subd is not configured or does not exist."
+        else
+            echo "The subdomain $subd is a A record and points to $result"
+        fi
+        done
+}
+
+#check if both domain and subdomain parameters are provided
+if [ $# -lt 1]; then
+    echo "Usage: $0 domain [subdomain]"
+    exit 1
+fi
+
+#extract domans and subdomains from parameters
+domain="$1"
+subdomain="$2"
+
+#call function
+check_subdomain "$domain" "$subdomain"
