@@ -1,13 +1,18 @@
 # script that changes the config file with puppet
+include stdlib
 
-# remove password authentication
-augeas{'remove passwd auth':
-    context => '/etc/ssh/ssh_config',
-    changes => 'set PasswordAuthentication no'
+file_line { 'SSH key':
+    path               => '/etc/ssh/ssh_config',
+    line               => '  IdentityFile ~/.ssh/school',
+    match              => '^#*\s*IdentityFile ~/ssh/id_rsa$',
+    replace            => true,
+    append_on_no_match => true
 }
 
-# ensures the right private authentication key is provided
-augeas{'my identity file':
-    context => '/etc/ssh/ssh_config',
-    changes => 'set IdentityFile ~/.ssh/school'
+file_line { 'No Password Auth':
+  path               => '/etc/ssh/ssh_config',
+  line               => '    PasswordAuthentication no',
+  match              => '^#*\s*PasswordAuthentication yes|no$',
+  replace            => true,
+  append_on_no_match => true
 }
