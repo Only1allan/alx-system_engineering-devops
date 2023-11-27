@@ -7,11 +7,3 @@ then
 fi
 
 scp -o StrictHostKeyChecking=no -i "$4" "$1" "$3"@"$2":~/
-mycmd=$?
-
-if [ "$mycmd" -eq 0 ]
-then
-    echo "File transferred!"
-else
-    echo "File transfer failed!"
-fi
