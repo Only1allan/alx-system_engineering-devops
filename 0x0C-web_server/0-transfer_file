@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#transfer a file from local to remote server
 
 if [ "$#" -ne 4 ]
 then
