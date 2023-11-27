@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#a script that installs nginx to a remote server
+
+sudo apt update -y
+sudo apt upgrade -y
+
+#install nginx
+sudo apt install nginx -y
+
+#start nginx
+sudo service nginx start
+
+#modify permissions for web files
+sudo chown -R $USER:$USER /var/www/html
+
+#modify root server page
+echo "Hello world" > /var/www/html/index.nginx-debian.html
