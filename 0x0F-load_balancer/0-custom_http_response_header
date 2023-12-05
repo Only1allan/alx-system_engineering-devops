@@ -24,3 +24,6 @@ sudo sed -i '\#root /var/www/html;#a\\terror_page 404 /404.html;\n' /etc/nginx/s
 
 #modify 404 page
 echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+#restart nginx
+sudo service nginx restart
