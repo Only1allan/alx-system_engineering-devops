@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+"""Fastest way to configure nginx to allow port 80"""
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+service nginx restart
