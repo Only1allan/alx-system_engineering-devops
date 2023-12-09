@@ -14,4 +14,4 @@ sudo service nginx start
 sudo chown -R $USER:$USER /var/www/html
 
 #modify root server page
-echo "Hello world" > /var/www/html/index.nginx-debian.html
+sudo echo "Hello world" > /var/www/html/index.nginx-debian.html
