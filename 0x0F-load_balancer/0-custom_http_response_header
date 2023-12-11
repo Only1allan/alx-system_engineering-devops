@@ -2,13 +2,9 @@
 #a script that installs nginx to a remote server
 
 sudo apt update -y
-sudo apt upgrade -y
 
 #install nginx
 sudo apt install nginx -y
-
-#start nginx
-sudo service nginx start
 
 #modify permissions for web files
 sudo chown -R "$USER":"$USER" /var/www/html
@@ -47,4 +43,4 @@ echo "server {
 }" > sudo tee /etc/nginx/sites-available/default
 
 #restart nginx
-sudo systemctl restart nginx
+sudo service nginx restart
