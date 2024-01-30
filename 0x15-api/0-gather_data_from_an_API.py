@@ -10,23 +10,20 @@ import sys
 
 if __name__ == "__main__":
     user_id = sys.argv[1]
-    url_users = "https://jsonplaceholder.typicode.com/users"
-    url_todos = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
-    employee = "Employee {} is done with tasks({}/{}):"
+    url = 'https://jsonplaceholder.typicode.com/'
+    user_str = f'{url}users/{user_id}'
+    todos_str = f'{url}todos?userId={user_id}'
+    employee_str = "Employee {} is done with tasks"
 
-    r_users = requests.get(url_users, timeout=5).json()
-    r_todos = requests.get(url_todos, timeout=5).json()
+    res = requests.get(user_str, timeout=5)
+    print(employee_str.format(res.json().get('name')), end="")
 
-    for user in r_users:
-        if user.get('id') == int(user_id):
-            name = user.get('name')
-            break
-
-    done_tasks = []
-    for task in r_todos:
+    res = requests.get(todos_str, timeout=5)
+    tasks = []
+    for task in res.json():
         if task.get('completed') is True:
-            done_tasks.append(task.get('title'))
+            tasks.append(task)
 
-    print(employee.format(name, len(done_tasks), len(r_todos)))
-    for task in done_tasks:
-        print("\t {}".format(task))
+    print(f"({len(tasks)}/{len(res.json())}):")
+    for task in tasks:
+        print(f"\t {task.get('title')}")
