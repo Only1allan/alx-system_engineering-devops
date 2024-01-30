@@ -20,7 +20,6 @@ if __name__ == "__main__":
     for task in json_o:
         if task.get("completed") is True:
             completed_tasks.append(task.get("title"))
-    print(f"Employee {name} is done with tasks \
-        ({len(completed_tasks)}/{len(json_o)}):")
+    print(f"Employee {name} is done with tasks ({len(completed_tasks)}/{len(json_o)}):")
     for task in completed_tasks:
         print(f"\t {task}")
