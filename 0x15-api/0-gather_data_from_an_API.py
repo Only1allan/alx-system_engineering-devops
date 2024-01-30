@@ -9,17 +9,24 @@ import requests
 import sys
 
 if __name__ == "__main__":
-    url = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
-    r = requests.get(url, timeout=5)
-    json_o = r.json()
-    name = json_o.get("name")
-    url = f"https://jsonplaceholder.typicode.com/todos?userId={sys.argv[1]}"
-    r = requests.get(url, timeout=5)
-    json_o = r.json()
-    completed_tasks = []
-    for task in json_o:
-        if task.get("completed") is True:
-            completed_tasks.append(task.get("title"))
-    print(f"Employee {name} is done with tasks ({len(completed_tasks)}/{len(json_o)}):")
-    for task in completed_tasks:
-        print(f"\t {task}")
+    user_id = sys.argv[1]
+    url_users = "https://jsonplaceholder.typicode.com/users"
+    url_todos = f"https://jsonplaceholder.typicode.com/todos?userId={user_id}"
+    employee = "Employee {} is done with tasks({}/{}):"
+
+    r_users = requests.get(url_users, timeout=5).json()
+    r_todos = requests.get(url_todos, timeout=5).json()
+
+    for user in r_users:
+        if user.get('id') == int(user_id):
+            name = user.get('name')
+            break
+
+    done_tasks = []
+    for task in r_todos:
+        if task.get('completed') is True:
+            done_tasks.append(task.get('title'))
+
+    print(employee.format(name, len(done_tasks), len(r_todos)))
+    for task in done_tasks:
+        print("\t {}".format(task))
