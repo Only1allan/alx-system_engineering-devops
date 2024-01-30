@@ -7,18 +7,23 @@ in CSV format.
 
 import csv
 import requests
+import sys
 
 if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com/users"
-    r = requests.get(url, timeout=5)
-    json_o = r.json()
-    with open("todo_all_employees.csv", "w", encoding="utf-8") as csvfile:
+    user_id = sys.argv[1]
+    url = 'https://jsonplaceholder.typicode.com/'
+    user_str = f'{url}users/{user_id}'
+    todos_str = f'{url}todos?userId={user_id}'
+    file = f'{user_id}.csv'
+
+    res = requests.get(user_str, timeout=5)
+    username = res.json().get('username')
+
+    res = requests.get(todos_str, timeout=5)
+    tasks = []
+    for task in res.json():
+        tasks.append([user_id, username, task.get('completed'), task.get('title')])
+    with open(file, 'w') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-        for user in json_o:
-            url = f"https://jsonplaceholder.typicode.com/todos?userId=\
-            {user.get('id')}"
-            r = requests.get(url, timeout=5)
-            json_o = r.json()
-            for task in json_o:
-                writer.writerow([user.get("id"), user.get("username"),
-                                 task.get("completed"), task.get("title")])
+        writer.writerows(tasks)
+
