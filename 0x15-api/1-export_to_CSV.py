@@ -22,8 +22,8 @@ if __name__ == "__main__":
     res = requests.get(todos_str, timeout=5)
     tasks = []
     for task in res.json():
-        tasks.append([user_id, username, task.get('completed'), task.get('title')])
+        tasks.append([user_id, username,
+                      task.get('completed'), task.get('title')])
     with open(file, 'w') as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         writer.writerows(tasks)
-
