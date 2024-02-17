@@ -5,8 +5,8 @@ import sys
 
 
 def count_words(subreddit, word_list):
-    """Function that queries the Reddit API, parses the title of all hot articles,
-    and prints a sorted count of given keywords."""
+    """Function that queries the Reddit API, parses the title
+    of all hot articles, and prints a sorted count of given keywords."""
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers,
