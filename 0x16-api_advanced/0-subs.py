@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module for number of subscribers"""
+import sys
 import requests
 
 
@@ -14,3 +15,7 @@ def number_of_subscribers(subreddit):
     if response.status_code != 200:
         return 0
     return response.json().get('data').get('subscribers')
+
+
+if __name__ == 'main':
+    number_of_subscribers(sys.argv[1])
