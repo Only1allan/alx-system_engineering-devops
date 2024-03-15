@@ -1,3 +1,11 @@
 #nginx traffic handler
-exec { '/usr/bin/env sed -i s/15/1000/ /etc/default/nginx': }
--> exec { '/usr/bin/env service nginx restart': }
+exec { 'handle more traffic':
+  command => '/bin/sed -i "s/25/4096/" /etc/default/nginx',
+  path    => '/usr/local/bin/:/bin/',
+}
+
+# Restart
+exec { 'nginx-restart':
+  command => '/etc/init.d/nginx restart',
+  path    => '/etc/init.d/',
+}
