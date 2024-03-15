@@ -1,11 +1,5 @@
-#nginx traffic handler
-exec { 'handle more traffic':
-  command => '/bin/sed -i "s/25/4096/" /etc/default/nginx',
-  path    => '/usr/local/bin/:/bin/',
-}
-
-# Restart
-exec { 'nginx-restart':
-  command => '/etc/init.d/nginx restart',
-  path    => '/etc/init.d/',
+# Nginx traffic handler
+exec { 'Nginx limit':
+  command  => 'sudo sed -i "s/15/4096/g" /etc/default/nginx; sudo service nginx restart',
+  provider => shell,
 }
