@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+subscribers module
+"""
 import requests
 from sys import argv
 
