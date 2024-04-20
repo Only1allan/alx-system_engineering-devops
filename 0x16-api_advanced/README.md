@@ -1,1 +1,1 @@
-A directory sending API requests to the reddit API
+Using The Reddit API examples
