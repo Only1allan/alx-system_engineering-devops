@@ -3,21 +3,16 @@
 subscribers module
 """
 import requests
-from sys import argv
 
 
 def number_of_subscribers(subbreddit):
     """Returns the number of subscribers for a given subreddit"""
 
     header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    response = requests.get(
-        "https://www.reddit.com/r/{}/about.json".format(subbreddit), headers=header, timeout=5).json()
+    url = "https://www.reddit.com"
+    query = "/r/{}/about.json".format(subbreddit)
+    response = requests.get(url + query, headers=header, allow_redirects=False)
 
-    try:
-        return response.get("data").get("subscribers")
-    except Exception:
-        return 0
-
-
-if __name__ == "__main__":
-    number_of_subscribers(argv[1])
+    if response.status_code == 200:
+        return response.json().get("data").get("subscribers")
+    return 0
