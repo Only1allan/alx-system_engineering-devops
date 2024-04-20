@@ -1,19 +1,20 @@
 #!/usr/bin/python3
-"""
-Module for number of subscribers
-"""
 import requests
+from sys import argv
 
 
-def number_of_subscribers(subreddit):
-    """
-    Queries the Reddit API and returns the number of subscribers
-    """
+def number_of_subscribers(subbreddit):
+    """Returns the number of subscribers for a given subreddit"""
 
-    url = f'https://www.reddit.com/r/{subreddit}/about.json'
-    headers = {'User-Agent': 'Custom'}
-    response = requests.get(url, headers=headers, timeout=5)
+    header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    response = requests.get(
+        "https://www.reddit.com/r/{}/about.json".format(subbreddit), headers=header, timeout=5).json()
 
-    if response.status_code != 200:
+    try:
+        return response.get("data").get("subscribers")
+    except Exception:
         return 0
-    return response.json().get('data').get('subscribers')
+
+
+if __name__ == "__main__":
+    number_of_subscribers(argv[1])
