@@ -6,7 +6,7 @@ import requests
 
 
 def top_ten(subreddit):
-    """Prints the titles of the first 10 hot posts listed for a given subreddit"""
+    """Prints first 10 hot posts listed for a given subreddit"""
 
     header = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Accept": "application/json"}
